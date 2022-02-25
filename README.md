@@ -7,7 +7,7 @@ If you are comfortable with Git/Github, feel free to fork and clone this reposit
 To follow along during the presentation, you'll need to have R/Rstudio installed on your computer along with a couple of R packages.
 
 - [Download R](https://cran.rstudio.com/)
-- [Download Studio](https://www.rstudio.com/products/rstudio/download/)
+- [Download RStudio](https://www.rstudio.com/products/rstudio/download/)
 - Install the neccesary packages by running the following line in your Rstudio console:
   - `install.packages(c("shiny", "knitr", "officer", "tidyverse"))`
 
