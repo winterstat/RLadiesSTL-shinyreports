@@ -9,6 +9,6 @@ To follow along during the presentation, you'll need to have R/Rstudio installed
 - [Download R](https://cran.rstudio.com/)
 - [Download RStudio](https://www.rstudio.com/products/rstudio/download/)
 - Install the neccesary packages by running the following line in your Rstudio console:
-  - `install.packages(c("shiny", "knitr", "officer", "tidyverse"))`
+  - `install.packages(c("shiny", "knitr", "officer", "officedown", "tidyverse", "palmerpenguins", "flextable"))`
 
 *You might notice that there aren't a ton of files in this repository just quite yet. That's because I'm still working on them! Please check back closer to March 15, and I'll promise those files will be here!*

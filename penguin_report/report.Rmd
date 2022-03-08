@@ -1,0 +1,123 @@
+---
+title: "Penguin Report"
+author: ""
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    theme:
+      bootswatch: minty
+  pdf_document: default
+params:
+  data: NULL
+  xaxis: NULL
+  yaxis: NULL
+  groupvar: NULL
+  prettynames: NULL
+  tablelayout: NULL
+  q1: NULL
+  q2: NULL
+  q3: NULL
+  key: NULL
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval=TRUE, message=FALSE, warning=FALSE)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+library(webshot) 
+if(is.null(webshot:::find_phantom())){webshot::install_phantomjs()}
+
+theme_set(theme_minimal())
+
+correct1 <- if(params$q1 == params$key[[1]]) {"correct"} else {"incorrect"}
+correct2 <- if(params$q2 == params$key[[2]]) {"correct"} else {"incorrect"}
+correct3 <- if(params$q3 == params$key[[3]]) {"correct"} else {"incorrect"}
+
+score <- sum(c(correct1, correct2, correct3) == "correct")
+```
+
+```{r penguinimage, echo=FALSE, fig.align='center', out.width = "20%"}
+knitr::include_graphics("penguins.png", dpi = 1200)
+```
+
+*Note: Artwork by [\@allison_horst](https://allisonhorst.github.io/palmerpenguins/articles/art.html).*  
+
+## Your Penguin Plot  
+
+The scatterplot below shows the relationship between `r params$prettynames[2]` and `r params$prettynames[1]` for each `r params$prettynames[3]` observed in the ``penguins`` data frame. Linear fit lines have been included for each group, making it easier to see if the relationship is positive or negative, strong or weak.
+
+```{r penguinplot}
+# Get pretty names for labels/titles
+ylab <- params$pretty_names[1]
+xlab <- params$pretty_names[2]
+grouplab <- params$pretty_names[3]
+
+colors <- c("darkorange","purple","cyan4")
+
+# Create plot
+params$data %>%
+  ggplot(aes_string(x = params$xaxis, y = params$yaxis)) +
+  # Add scatter points
+  geom_point(aes_string(colour = params$groupvar,
+                        shape = params$groupvar),
+             size = 3) +
+  # Include fit line
+  geom_smooth(aes_string(colour = params$groupvar), 
+              method = "lm", se = FALSE) +
+  scale_colour_manual(values = colors) +
+  # Add pretty labels
+  labs(x = xlab, y = ylab) +
+  guides(colour = guide_legend(grouplab),
+         shape = guide_legend(grouplab))
+
+
+```
+
+\newpage
+
+## Your Penguin Table
+
+The table below shows the mean and standard deviation (SD) of `r params$prettynames[2]` and `r params$prettynames[1]` for each `r params$prettynames[3]` observed in the ``penguins`` data frame. In addition, the table also includes the number of penguins within each group.
+
+```{r penguintable}
+# Summarize relevant values
+params$data %>%
+  group_by(.data[[params$groupvar]]) %>%
+  summarize(
+    cases = n(),
+    xvar_mean = mean(.data[[params$xaxis]], na.rm = T),
+    xvar_sd = sd(.data[[params$xaxis]], na.rm = T),
+    yvar_mean = mean(.data[[params$yaxis]], na.rm = T),
+    yvar_sd = sd(.data[[params$yaxis]], na.rm = T)
+  ) %>%
+  # Create Data Table
+  DT::datatable(options = list(dom = 't'), # only show table
+                rownames = FALSE, # don't include rownames
+                container = params$tablelayout # use custom layout
+  ) %>%
+  # Round summary stats to 2 decimals
+  DT::formatRound(c("xvar_mean", "xvar_sd", "yvar_mean", "yvar_sd"), 2)
+
+
+```
+
+## Your Quiz Results
+
+Below, you'll find your overall quiz score, as well as an overview of your answers (and correct answers if you answered incorrectly) to the quiz questions.
+
+### Score: `r paste0(score, "/3")`  
+
+**1. On what island were most penguins observed?**  
+Your response was `r params$q1`, which is `r correct1`. `r if(correct1 == "incorrect") {paste0("The correct answer is ", params$key[[1]], ".")}`  
+
+**2. How many male penguins were observed?**  
+Your response was `r params$q2`, which is `r correct2`. `r if(correct2 == "incorrect") {paste0("The correct answer is ", params$key[[2]], ".")}`  
+
+**3. What penguin species has the highest average body mass?**  
+Your response was `r params$q3`, which is `r correct3`. `r if(correct3 == "incorrect") {paste0("The correct answer is ", params$key[[3]], ".")}`
+
+                         
