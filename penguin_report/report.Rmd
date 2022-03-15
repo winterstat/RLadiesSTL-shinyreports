@@ -27,7 +27,6 @@ knitr::opts_chunk$set(echo = FALSE, eval=TRUE, message=FALSE, warning=FALSE)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-
 library(webshot) 
 if(is.null(webshot:::find_phantom())){webshot::install_phantomjs()}
 
@@ -119,5 +118,6 @@ Your response was `r params$q2`, which is `r correct2`. `r if(correct2 == "incor
 
 **3. What penguin species has the highest average body mass?**  
 Your response was `r params$q3`, which is `r correct3`. `r if(correct3 == "incorrect") {paste0("The correct answer is ", params$key[[3]], ".")}`
+
 
                          

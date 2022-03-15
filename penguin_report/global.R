@@ -9,7 +9,7 @@ char_names <- c("Bill length" = 'bill_length_mm',
 # Grouping variable names
 group_names <- c("Island" = 'island', "Species" = 'species',
                  "Sex" = 'sex')
-# Quiz answers
+# Quiz answer key
 key <- list("q1" = 'Biscoe', "q2" = 168, "q3" = 'Gentoo')
 
 # Quiz questions
