@@ -27,7 +27,11 @@ shinyUI(fluidPage(
   ),
   
   p("Explore the Palmer Penguins with this Shiny App!"),
-  p("This App was created to accompany the R-Ladies St. Louis talk ", a(href="https://github.com/winterstat/RLadiesSTL-shinyreports", "'Creating Dynamic Reports from your Shiny App'", target = "_blank", .noWS = "outside"), '.', .noWS = c("after-begin", "before-end")), 
+  p("This App was created to accompany the R-Ladies St. Louis talk ", 
+    a(href="https://github.com/winterstat/RLadiesSTL-shinyreports", 
+      "'Creating Dynamic Reports from your Shiny App'", 
+      target = "_blank", .noWS = "outside"), '.', 
+    .noWS = c("after-begin", "before-end")), 
   
   # Sidebar with Input options for user
   sidebarLayout(
@@ -72,8 +76,8 @@ shinyUI(fluidPage(
                  hr(),
                  # h4("Download your custom report!"),
                  # radioButtons('format', tags$b('Pick a Document format'), 
-                 #              c('PDF', 'HTML', 'Word'),
-                 #              inline = TRUE),
+                 #               c('PDF', 'HTML', 'Word'),
+                 #               inline = TRUE),
                  # downloadButton("report", "Generate report"), 
                  # downloadButton("officerreport", "Generate officer report")
         )
@@ -81,8 +85,9 @@ shinyUI(fluidPage(
     ) # Close mainPanel
   ), # Close SidebarLayout 
   hr(), # Include footer
-  p("Artwork by ", a(href="https://allisonhorst.github.io/palmerpenguins/articles/art.html", "@allison_horst", 
-                     target = "_blank", .noWS = "outside"), '.', 
+  p("Artwork by ", 
+    a(href="https://allisonhorst.github.io/palmerpenguins/articles/art.html", 
+      "@allison_horst", target = "_blank", .noWS = "outside"), '.', 
     .noWS = c("after-begin", "before-end"),
     style = 'color: #D3D3D3; font-size: 0.75em;')
 ) # Close fluidPage
