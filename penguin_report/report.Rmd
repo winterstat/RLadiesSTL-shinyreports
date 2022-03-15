@@ -119,5 +119,16 @@ Your response was `r params$q2`, which is `r correct2`. `r if(correct2 == "incor
 **3. What penguin species has the highest average body mass?**  
 Your response was `r params$q3`, which is `r correct3`. `r if(correct3 == "incorrect") {paste0("The correct answer is ", params$key[[3]], ".")}`
 
+<<<<<<< HEAD
+=======
+## Cases per group plot
+
+```{r casesplot}
+params$data %>%
+  ggplot() +
+  geom_bar(aes_string(x = params$groupvar))
+  
+```
+>>>>>>> 4323e0525e77ed161d53e01090d3cf145614b263
 
                          
